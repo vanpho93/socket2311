@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat realtime</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+      //5
+      $(document).ready(() => {
+        var socket = io();
+        $('#btn-send').click(() => {
+          socket.emit('CLIENT_SEND_MESSAGE', 123);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    Realtime KhoaPham
+    <button type="button" id="btn-send"></button>
+  </body>
+</html>
