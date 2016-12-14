@@ -7,11 +7,13 @@ app.use(express.static('public'));
 
 var io = require('socket.io')(server); //1
 var mang = [];
+var mangSocket = [];
 server.listen(3000, () => console.log('Server started'));
 
 app.get('/', (req, res) => res.render('home'));
 
 io.on('connection', socket => { //3
+  mangSocket.push(socket);//dautien
   console.log('Co nguoi ket noi');
 
   socket.emit('LIST_USER', mang);///////////
@@ -31,6 +33,10 @@ io.on('connection', socket => { //3
   socket.on('disconnect', () => {
     mang.splice(mang.indexOf(socket.username), 1);
     io.emit('USER_DISCONNECT', socket.username)
+  });
+
+  socket.on('CLIENT_SEND_MESSAGE', msg => {
+    io.emit('SERVER_SEND_MESSAGE', `${socket.username}: ${msg}`);
   });
 });
 

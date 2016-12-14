@@ -35,6 +35,16 @@
           $(`#${username}`).remove();
         });
 
+        $('#btn-gui-tin').click(()=>{
+          var msg = $('#txt-msg').val();
+          $('#txt-msg').val('');
+          socket.emit('CLIENT_SEND_MESSAGE', msg);
+        });
+
+        socket.on('SERVER_SEND_MESSAGE', msg => {
+          $('#list-msg').append(`<li>${msg}</li>`)
+        })
+
       });
     </script>
   </head>
@@ -43,5 +53,10 @@
     <br><br>
     <button type="button" id="btn-dang-ky">Gui</button>
     <ul id="list-user"></ul>
+    <hr>
+    <input type="text" placeholder="Enter your message" id="txt-msg">
+    <br><br>
+    <button type="button" id="btn-gui-tin">Gui</button>
+    <ul id="list-msg"></ul>
   </body>
 </html>
