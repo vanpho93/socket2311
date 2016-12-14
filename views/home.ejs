@@ -10,13 +10,16 @@
       $(document).ready(() => {
         var socket = io();
         $('#btn-send').click(() => {
-          socket.emit('CLIENT_SEND_MESSAGE', 123);
+          var msg = $('#txt-msg').val();
+          socket.emit('CLIENT_SEND_MESSAGE', msg);
+          var msg = $('#txt-msg').val('');
         });
       });
     </script>
   </head>
   <body>
-    Realtime KhoaPham
-    <button type="button" id="btn-send"></button>
+    <input type="text" placeholder="Enter your message" id="txt-msg">
+    <br><br>
+    <button type="button" id="btn-send">Gui</button>
   </body>
 </html>
