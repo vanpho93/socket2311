@@ -18,6 +18,7 @@ io.on('connection', socket => { //3
 
   socket.on('NGUOI_DUNG_DANG_KY', username => {
     if(mang.indexOf(username) == -1){
+      socket.username = username;///1
       mang.push(username);
       socket.emit('SERVER_XAC_NHAN_DANG_KY', true);
       io.emit('NGUOI_DUNG_MOI', username);
@@ -27,7 +28,10 @@ io.on('connection', socket => { //3
     console.log(username);
   });
 
-  socket.on('disconnect', () => console.log('user disconnect'));
+  socket.on('disconnect', () => {
+    mang.splice(mang.indexOf(socket.username), 1);
+    io.emit('USER_DISCONNECT', socket.username)
+  });
 });
 
 /*
