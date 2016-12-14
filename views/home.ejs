@@ -9,17 +9,31 @@
       //5
       $(document).ready(() => {
         var socket = io();
-        $('#btn-send').click(() => {
-          var msg = $('#txt-msg').val();
-          socket.emit('CLIENT_SEND_MESSAGE', msg);
-          var msg = $('#txt-msg').val('');
+        $('#btn-dang-ky').click(() => {
+          var username = $('#txt-username').val();
+          $('#txt-username').val('');
+          socket.emit('NGUOI_DUNG_DANG_KY', username);
         });
+
+        socket.on('SERVER_XAC_NHAN_DANG_KY', ketqua => {
+          if(ketqua){
+            alert('Thanh cong')
+          }else{
+            alert('That bai')
+          }
+        });
+
+        socket.on('NGUOI_DUNG_MOI', username => {
+          $('#list-user').append(`<li>${username}</li>`);
+        });
+
       });
     </script>
   </head>
   <body>
-    <input type="text" placeholder="Enter your message" id="txt-msg">
+    <input type="text" placeholder="Enter your username" id="txt-username">
     <br><br>
-    <button type="button" id="btn-send">Gui</button>
+    <button type="button" id="btn-dang-ky">Gui</button>
+    <ul id="list-user"></ul>
   </body>
 </html>
