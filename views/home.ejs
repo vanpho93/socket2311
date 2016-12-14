@@ -27,6 +27,10 @@
           $('#list-user').append(`<li>${username}</li>`);
         });
 
+        socket.on('LIST_USER', list => {
+          list.forEach(e => $('#list-user').append(`<li>${e}</li>`));
+        })
+
       });
     </script>
   </head>

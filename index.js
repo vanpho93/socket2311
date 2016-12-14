@@ -13,6 +13,9 @@ app.get('/', (req, res) => res.render('home'));
 
 io.on('connection', socket => { //3
   console.log('Co nguoi ket noi');
+
+  socket.emit('LIST_USER', mang);///////////
+
   socket.on('NGUOI_DUNG_DANG_KY', username => {
     if(mang.indexOf(username) == -1){
       mang.push(username);
@@ -23,7 +26,9 @@ io.on('connection', socket => { //3
     }
     console.log(username);
   });
-})
+
+  socket.on('disconnect', () => console.log('user disconnect'));
+});
 
 /*
   Username khong duoc trung nhau
